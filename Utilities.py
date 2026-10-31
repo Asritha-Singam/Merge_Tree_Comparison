@@ -304,7 +304,7 @@ def draw_tree(FileName):
 
 def SeeMatching(FileName1,FileName2):
     if FileName1 != FileName2:
-        matching = subprocess.run(["java -jar SeeMatching.jar "+ FileName1 + ".jt " + FileName2 + ".jt ./"],shell=True, capture_output=True,text=True).stdout.strip()
+        matching = subprocess.run(["java -cp CustomisedWasserstein SeeMatching.java "+ FileName1 + ".jt " + FileName2 + ".jt ./"],shell=True, capture_output=True,text=True).stdout.strip()
         matching = matching.replace('[','')
         matching = matching.replace(']','')
         matching = matching.replace('(','')

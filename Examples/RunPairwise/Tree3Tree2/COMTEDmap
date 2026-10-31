@@ -15,8 +15,8 @@ _Examples_Inputs_Tree3_6 -> _Examples_Inputs_Tree3_9;
  label=_Examples_Inputs_Tree2;_Examples_Inputs_Tree2_1 -> _Examples_Inputs_Tree2_2;
 _Examples_Inputs_Tree2_2 -> _Examples_Inputs_Tree2_3;
 _Examples_Inputs_Tree2_2 -> _Examples_Inputs_Tree2_4;
-}_Examples_Inputs_Tree3_3 -> _Examples_Inputs_Tree2_4
-_Examples_Inputs_Tree3_9 -> _Examples_Inputs_Tree2_3
+}_Examples_Inputs_Tree3_3 -> _Examples_Inputs_Tree2_3
+_Examples_Inputs_Tree3_9 -> _Examples_Inputs_Tree2_4
 _Examples_Inputs_Tree3_2 -> _Examples_Inputs_Tree2_2
 _Examples_Inputs_Tree3_1 -> _Examples_Inputs_Tree2_1
 }
