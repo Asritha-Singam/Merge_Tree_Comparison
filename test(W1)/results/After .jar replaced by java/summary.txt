@@ -1,0 +1,23 @@
+run      After .jar replaced by java
+date     20261113-230739
+java     openjdk version "21.0.12.1" 2026-08-18 LTS
+workers  11
+programs CW CO BN WS SM W1
+
+[examples]  inputs: C:\Users\saias\OneDrive\Desktop\IIITH\SV\Project_SV\Merge_Tree_Comparison\Examples\Inputs  pairs: 256
+  CW  ok  256  failed   0  avg 0.43s
+  CO  ok  256  failed   0  avg 0.43s
+  BN  ok  256  failed   0  avg 0.34s
+  WS  ok  256  failed   0  avg 0.36s
+  SM  ok  256  failed   0  avg 0.40s
+  W1  ok  256  failed   0  avg 0.38s
+
+[w1]  inputs: C:\Users\saias\OneDrive\Desktop\IIITH\SV\Project_SV\Merge_Tree_Comparison\test(W1)\test_trees  pairs: 250
+  CW  ok  250  failed   0  avg 1.73s
+  CO  ok  250  failed   0  avg 1.65s
+  BN  ok  250  failed   0  avg 0.89s
+  WS  ok  250  failed   0  avg 0.73s
+  SM  ok  250  failed   0  avg 0.82s
+  W1  ok  250  failed   0  avg 0.73s
+
+total time 205s
