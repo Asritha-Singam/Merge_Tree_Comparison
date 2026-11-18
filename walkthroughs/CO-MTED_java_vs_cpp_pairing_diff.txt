@@ -1,0 +1,765 @@
+CO-MTED: Java vs C++ pairing differences
+=========================================
+Java  (baseline): test(W1)/results/after_jar_to_java              (CO-MTED.java)
+C++   (port)    : Converted_Merge_Tree_Comparison/results/after_comted_to_cpp  (CO-MTED.exe)
+                  (after_cwmted_to_cpp has byte-identical CO output, so it gives the same comparison)
+Files compared  : <dataset>/files/CO/<tree1>__<tree2>/forwardmapCO.txt and backwardmapCO.txt
+Generated       : 2026-11-17
+
+RESULT IN SHORT
+  - Distances: identical on all 256 examples and 250 w1 pairs.
+  - Pairings differ on 27/256 examples and 202/250 w1 pairs.
+  - Every differing mapping (Java's and C++'s) costs exactly the distance and is a valid
+    mapping, so these are ties: several optimal mappings exist and C++ picks a different one.
+  - Unlike CW, Java CO is itself not fully deterministic: on ties its choice depends on
+    Java identity hash codes, so it can change with how Java is launched (e.g. Tree1 vs TreeC
+    gives "3,3 2,2 1,1" from a bash launch but "3,3 4,4 2,2 1,1" from Python, as in these runs).
+    C++ CO gives the same output on every run.
+
+HOW TO READ THE ENTRIES BELOW
+  Tree1__TreeC  dist J=217.454546          <- tree pair and Java's distance (C++ is the same)
+     forward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['4,4']  cpp-only=[]
+       forward / backward : which map file (forwardmapCO.txt / backwardmapCO.txt)
+       java N pairs       : number of node pairs ("id1,id2" lines) in Java's file
+       cpp N pairs        : number of node pairs in the C++ file
+       java-only          : pairs Java has that C++ does not
+       cpp-only           : pairs C++ has that Java does not
+       rel (relation of the C++ set to the Java set):
+         sub   = C++ is a strict subset of Java   -> C++ left out some pairs
+         super = C++ is a strict superset of Java -> C++ added some pairs
+         cross = each has pairs the other lacks   -> some pairs swapped
+       identical  = same pairs in the same order
+       order-only = same pairs, different line order (not a real difference)
+
+  "categories" line per dataset:
+       identical / order-only / DIFF : number of tree pairs in each group
+       cpp fwd==bwd / java fwd==bwd  : tree pairs where forward and backward files are byte-identical
+
+  "diff kinds" at the end of each dataset: (map, rel, size) -> count, where size is
+       size cpp fewer / size cpp more / size same : C++ pair count vs Java pair count
+
+STATS
+                                 examples (256)   w1 (250)
+  distance mismatches                  0              0
+  pairing identical                  217             48
+  order-only                          12              0
+  pairing different                   27            202
+    sub   (C++ fewer, subset)         27             28
+    super (C++ more, superset)         0            111
+    cross (swapped)                    0             63  (50 same size, 9 C++ more, 4 C++ fewer)
+  total pairs Java / C++          1192 / 1153    15618 / 15730
+  pairs in both                1153 (96.7%)  15519 (99.4%)
+  Java-only / C++-only pairs        39 / 0         99 / 211
+  pairs changed per diff case       1-2           1-4 (median 1)
+  diff mappings costing exactly the distance (Java / C++)   27 / 27      202 / 202
+  diff mappings valid (Java / C++)                          27 / 27      202 / 202
+
+  In examples C++ always only leaves pairs out: '4,4' in 12 cases, '2,2' and '4,4' in 12 cases,
+  '3,3' in 3 cases.
+
+=============================== FULL DETAIL ===============================
+===== examples: 256 pairs, distance mismatches: 0
+  categories: {'identical': 217, 'cpp fwd==bwd': 236, 'java fwd==bwd': 224, 'DIFF': 27, 'order-only': 12}
+  Tree1__Tree2normalised  dist J=217.454546
+     forward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['4,4']  cpp-only=[]
+     backward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['4,4']  cpp-only=[]
+  Tree1__TreeC  dist J=217.454546
+     forward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['4,4']  cpp-only=[]
+     backward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['4,4']  cpp-only=[]
+  Tree1__TreeCnormalised  dist J=217.454546
+     forward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['4,4']  cpp-only=[]
+     backward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['4,4']  cpp-only=[]
+  Tree2normalised__Tree1  dist J=217.454546
+     forward: java 3 pairs, cpp 1 pairs, rel=sub  java-only=['2,2', '4,4']  cpp-only=[]
+     backward: java 3 pairs, cpp 1 pairs, rel=sub  java-only=['2,2', '4,4']  cpp-only=[]
+  Tree2normalised__Tree2  dist J=15.454546
+     forward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['3,3']  cpp-only=[]
+     backward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['3,3']  cpp-only=[]
+  Tree2normalised__Tree3  dist J=208.454546
+     forward: java 3 pairs, cpp 1 pairs, rel=sub  java-only=['2,2', '4,4']  cpp-only=[]
+     backward: java 3 pairs, cpp 1 pairs, rel=sub  java-only=['2,2', '4,4']  cpp-only=[]
+  Tree2normalised__TreeA  dist J=217.454546
+     forward: java 3 pairs, cpp 1 pairs, rel=sub  java-only=['2,2', '4,4']  cpp-only=[]
+     backward: java 3 pairs, cpp 1 pairs, rel=sub  java-only=['2,2', '4,4']  cpp-only=[]
+  Tree2normalised__TreeD  dist J=208.454546
+     forward: java 3 pairs, cpp 1 pairs, rel=sub  java-only=['2,2', '4,4']  cpp-only=[]
+     backward: java 3 pairs, cpp 1 pairs, rel=sub  java-only=['2,2', '4,4']  cpp-only=[]
+  Tree3__Tree2normalised  dist J=208.454546
+     forward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['4,4']  cpp-only=[]
+     backward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['4,4']  cpp-only=[]
+  Tree3__TreeC  dist J=208.454546
+     forward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['4,4']  cpp-only=[]
+     backward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['4,4']  cpp-only=[]
+  Tree3__TreeCnormalised  dist J=208.454546
+     forward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['4,4']  cpp-only=[]
+     backward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['4,4']  cpp-only=[]
+  TreeA__Tree2normalised  dist J=217.454546
+     forward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['4,4']  cpp-only=[]
+     backward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['4,4']  cpp-only=[]
+  TreeA__TreeC  dist J=217.454546
+     forward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['4,4']  cpp-only=[]
+     backward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['4,4']  cpp-only=[]
+  TreeA__TreeCnormalised  dist J=217.454546
+     forward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['4,4']  cpp-only=[]
+     backward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['4,4']  cpp-only=[]
+  TreeC__Tree1  dist J=217.454546
+     forward: java 3 pairs, cpp 1 pairs, rel=sub  java-only=['2,2', '4,4']  cpp-only=[]
+     backward: java 3 pairs, cpp 1 pairs, rel=sub  java-only=['2,2', '4,4']  cpp-only=[]
+  TreeC__Tree2  dist J=15.454546
+     forward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['3,3']  cpp-only=[]
+     backward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['3,3']  cpp-only=[]
+  TreeC__Tree3  dist J=208.454546
+     forward: java 3 pairs, cpp 1 pairs, rel=sub  java-only=['2,2', '4,4']  cpp-only=[]
+     backward: java 3 pairs, cpp 1 pairs, rel=sub  java-only=['2,2', '4,4']  cpp-only=[]
+  TreeC__TreeA  dist J=217.454546
+     forward: java 3 pairs, cpp 1 pairs, rel=sub  java-only=['2,2', '4,4']  cpp-only=[]
+     backward: java 3 pairs, cpp 1 pairs, rel=sub  java-only=['2,2', '4,4']  cpp-only=[]
+  TreeC__TreeD  dist J=208.454546
+     forward: java 3 pairs, cpp 1 pairs, rel=sub  java-only=['2,2', '4,4']  cpp-only=[]
+     backward: java 3 pairs, cpp 1 pairs, rel=sub  java-only=['2,2', '4,4']  cpp-only=[]
+  TreeCnormalised__Tree1  dist J=217.454546
+     forward: java 3 pairs, cpp 1 pairs, rel=sub  java-only=['2,2', '4,4']  cpp-only=[]
+     backward: java 3 pairs, cpp 1 pairs, rel=sub  java-only=['2,2', '4,4']  cpp-only=[]
+  TreeCnormalised__Tree2  dist J=15.454546
+     forward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['3,3']  cpp-only=[]
+     backward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['3,3']  cpp-only=[]
+  TreeCnormalised__Tree3  dist J=208.454546
+     forward: java 3 pairs, cpp 1 pairs, rel=sub  java-only=['2,2', '4,4']  cpp-only=[]
+     backward: java 3 pairs, cpp 1 pairs, rel=sub  java-only=['2,2', '4,4']  cpp-only=[]
+  TreeCnormalised__TreeA  dist J=217.454546
+     forward: java 3 pairs, cpp 1 pairs, rel=sub  java-only=['2,2', '4,4']  cpp-only=[]
+     backward: java 3 pairs, cpp 1 pairs, rel=sub  java-only=['2,2', '4,4']  cpp-only=[]
+  TreeCnormalised__TreeD  dist J=208.454546
+     forward: java 3 pairs, cpp 1 pairs, rel=sub  java-only=['2,2', '4,4']  cpp-only=[]
+     backward: java 3 pairs, cpp 1 pairs, rel=sub  java-only=['2,2', '4,4']  cpp-only=[]
+  TreeD__Tree2normalised  dist J=208.454546
+     forward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['4,4']  cpp-only=[]
+     backward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['4,4']  cpp-only=[]
+  TreeD__TreeC  dist J=208.454546
+     forward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['4,4']  cpp-only=[]
+     backward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['4,4']  cpp-only=[]
+  TreeD__TreeCnormalised  dist J=208.454546
+     forward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['4,4']  cpp-only=[]
+     backward: java 4 pairs, cpp 3 pairs, rel=sub  java-only=['4,4']  cpp-only=[]
+  diff kinds:
+     ('forward', 'sub', 'size cpp fewer') 27
+     ('backward', 'sub', 'size cpp fewer') 27
+===== w1: 250 pairs, distance mismatches: 0
+  categories: {'DIFF': 202, 'cpp fwd==bwd': 227, 'java fwd==bwd': 227, 'identical': 48}
+  tv_0__tv_1  dist J=0.091033000000001
+     forward: java 66 pairs, cpp 68 pairs, rel=super  java-only=[]  cpp-only=['6400,6000', '7200,7200']
+     backward: java 66 pairs, cpp 68 pairs, rel=super  java-only=[]  cpp-only=['6400,6000', '7200,7200']
+  tv_0__tv_100  dist J=0.8852480000000008
+     forward: java 61 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6000', '9635,6800']
+     backward: java 61 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6000', '9635,6800']
+  tv_0__tv_101  dist J=0.8694789999999994
+     forward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6000']
+     backward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6000']
+  tv_0__tv_102  dist J=0.8668540000000009
+     forward: java 63 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6400']
+     backward: java 63 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6400']
+  tv_0__tv_103  dist J=0.8384830000000024
+     forward: java 61 pairs, cpp 61 pairs, rel=cross  java-only=['7627,8025']  cpp-only=['9635,6400']
+     backward: java 61 pairs, cpp 61 pairs, rel=cross  java-only=['7627,8025']  cpp-only=['9635,6400']
+  tv_0__tv_104  dist J=0.8476800000000001
+     forward: java 63 pairs, cpp 63 pairs, rel=cross  java-only=['7627,8025']  cpp-only=['9635,7200']
+     backward: java 63 pairs, cpp 63 pairs, rel=cross  java-only=['7627,8025']  cpp-only=['9635,7200']
+  tv_0__tv_106  dist J=0.6143490000000007
+     forward: java 65 pairs, cpp 65 pairs, rel=cross  java-only=['7627,12027']  cpp-only=['9635,7200']
+     backward: java 65 pairs, cpp 65 pairs, rel=cross  java-only=['7627,12027']  cpp-only=['9635,7200']
+  tv_0__tv_107  dist J=0.6049020000000016
+     forward: java 63 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,5600']
+     backward: java 63 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,5600']
+  tv_0__tv_108  dist J=0.573842000000001
+     forward: java 61 pairs, cpp 61 pairs, rel=cross  java-only=['7627,12027']  cpp-only=['9635,6000']
+     backward: java 61 pairs, cpp 61 pairs, rel=cross  java-only=['7627,12027']  cpp-only=['9635,6000']
+  tv_0__tv_109  dist J=0.17482700000000118
+     forward: java 65 pairs, cpp 64 pairs, rel=sub  java-only=['2799,17199']  cpp-only=[]
+     backward: java 65 pairs, cpp 64 pairs, rel=sub  java-only=['2799,17199']  cpp-only=[]
+  tv_0__tv_11  dist J=0.8001310000000003
+     forward: java 62 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6000', '9635,7200']
+     backward: java 62 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6000', '9635,7200']
+  tv_0__tv_110  dist J=0.1212559999999997
+     forward: java 66 pairs, cpp 67 pairs, rel=super  java-only=[]  cpp-only=['9246,6800']
+     backward: java 66 pairs, cpp 67 pairs, rel=super  java-only=[]  cpp-only=['9246,6800']
+  tv_0__tv_111  dist J=0.12422199999999872
+     forward: java 65 pairs, cpp 66 pairs, rel=super  java-only=[]  cpp-only=['9246,6000']
+     backward: java 65 pairs, cpp 66 pairs, rel=super  java-only=[]  cpp-only=['9246,6000']
+  tv_0__tv_112  dist J=0.12403800000000079
+     forward: java 66 pairs, cpp 66 pairs, rel=cross  java-only=['11625,8025']  cpp-only=['9246,6400']
+     backward: java 66 pairs, cpp 66 pairs, rel=cross  java-only=['11625,8025']  cpp-only=['9246,6400']
+  tv_0__tv_113  dist J=0.1510119999999987
+     forward: java 64 pairs, cpp 65 pairs, rel=super  java-only=[]  cpp-only=['9246,7200']
+     backward: java 64 pairs, cpp 65 pairs, rel=super  java-only=[]  cpp-only=['9246,7200']
+  tv_0__tv_114  dist J=0.16453200000000057
+     forward: java 63 pairs, cpp 63 pairs, rel=cross  java-only=['7627,12027']  cpp-only=['9635,6400']
+     backward: java 63 pairs, cpp 63 pairs, rel=cross  java-only=['7627,12027']  cpp-only=['9635,6400']
+  tv_0__tv_115  dist J=0.17492300000000072
+     forward: java 62 pairs, cpp 61 pairs, rel=sub  java-only=['11625,7627']  cpp-only=[]
+     backward: java 62 pairs, cpp 61 pairs, rel=sub  java-only=['11625,7627']  cpp-only=[]
+  tv_0__tv_116  dist J=0.20058700000000051
+     forward: java 63 pairs, cpp 63 pairs, rel=cross  java-only=['11625,7627']  cpp-only=['9635,5600']
+     backward: java 63 pairs, cpp 63 pairs, rel=cross  java-only=['11625,7627']  cpp-only=['9635,5600']
+  tv_0__tv_117  dist J=0.21231700000000106
+     forward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+     backward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+  tv_0__tv_118  dist J=0.227232
+     forward: java 62 pairs, cpp 61 pairs, rel=sub  java-only=['11625,7626']  cpp-only=[]
+     backward: java 62 pairs, cpp 61 pairs, rel=sub  java-only=['11625,7626']  cpp-only=[]
+  tv_0__tv_119  dist J=0.23987100000000128
+     forward: java 62 pairs, cpp 61 pairs, rel=sub  java-only=['7627,12028']  cpp-only=[]
+     backward: java 62 pairs, cpp 61 pairs, rel=sub  java-only=['7627,12028']  cpp-only=[]
+  tv_0__tv_12  dist J=0.8104130000000009
+     forward: java 63 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6400']
+     backward: java 63 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6400']
+  tv_0__tv_120  dist J=0.2532610000000003
+     forward: java 63 pairs, cpp 62 pairs, rel=sub  java-only=['9635,10029']  cpp-only=[]
+     backward: java 63 pairs, cpp 62 pairs, rel=sub  java-only=['9635,10029']  cpp-only=[]
+  tv_0__tv_121  dist J=0.8016810000000011
+     forward: java 61 pairs, cpp 60 pairs, rel=sub  java-only=['9635,9631']  cpp-only=[]
+     backward: java 61 pairs, cpp 60 pairs, rel=sub  java-only=['9635,9631']  cpp-only=[]
+  tv_0__tv_123  dist J=0.8309640000000015
+     forward: java 62 pairs, cpp 62 pairs, rel=cross  java-only=['9246,10030']  cpp-only=['7200,6800']
+     backward: java 62 pairs, cpp 62 pairs, rel=cross  java-only=['9246,10030']  cpp-only=['7200,6800']
+  tv_0__tv_124  dist J=0.8586680000000015
+     forward: java 62 pairs, cpp 62 pairs, rel=cross  java-only=['9246,10030']  cpp-only=['7200,6800']
+     backward: java 62 pairs, cpp 62 pairs, rel=cross  java-only=['9246,10030']  cpp-only=['7200,6800']
+  tv_0__tv_127  dist J=0.8846170000000023
+     forward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+     backward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+  tv_0__tv_128  dist J=0.8823200000000011
+     forward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,6400']
+     backward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,6400']
+  tv_0__tv_129  dist J=0.8737640000000014
+     forward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,6000']
+     backward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,6000']
+  tv_0__tv_13  dist J=0.8277340000000003
+     forward: java 61 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6400', '9635,7200']
+     backward: java 61 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6400', '9635,7200']
+  tv_0__tv_130  dist J=0.8741750000000007
+     forward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,5600']
+     backward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,5600']
+  tv_0__tv_132  dist J=0.8911480000000033
+     forward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+     backward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+  tv_0__tv_133  dist J=0.9231149999999998
+     forward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+     backward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+  tv_0__tv_134  dist J=0.9356710000000029
+     forward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,6000']
+     backward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,6000']
+  tv_0__tv_135  dist J=0.9269970000000011
+     forward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+     backward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+  tv_0__tv_136  dist J=0.9174090000000015
+     forward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+     backward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+  tv_0__tv_137  dist J=0.9089840000000002
+     forward: java 64 pairs, cpp 64 pairs, rel=cross  java-only=['2799,799']  cpp-only=['9246,6000']
+     backward: java 64 pairs, cpp 64 pairs, rel=cross  java-only=['2799,799']  cpp-only=['9246,6000']
+  tv_0__tv_138  dist J=0.8985990000000001
+     forward: java 65 pairs, cpp 65 pairs, rel=cross  java-only=['2799,399']  cpp-only=['9246,5600']
+     backward: java 65 pairs, cpp 65 pairs, rel=cross  java-only=['2799,399']  cpp-only=['9246,5600']
+  tv_0__tv_139  dist J=0.8941090000000002
+     forward: java 64 pairs, cpp 66 pairs, rel=super  java-only=[]  cpp-only=['9246,6400', '9635,7200']
+     backward: java 64 pairs, cpp 66 pairs, rel=super  java-only=[]  cpp-only=['9246,6400', '9635,7200']
+  tv_0__tv_140  dist J=0.8445110000000008
+     forward: java 64 pairs, cpp 63 pairs, rel=sub  java-only=['2799,399']  cpp-only=[]
+     backward: java 64 pairs, cpp 63 pairs, rel=sub  java-only=['2799,399']  cpp-only=[]
+  tv_0__tv_141  dist J=0.8212399999999995
+     forward: java 64 pairs, cpp 64 pairs, rel=cross  java-only=['7627,11625']  cpp-only=['9635,7200']
+     backward: java 64 pairs, cpp 64 pairs, rel=cross  java-only=['7627,11625']  cpp-only=['9635,7200']
+  tv_0__tv_142  dist J=0.82255
+     forward: java 64 pairs, cpp 64 pairs, rel=cross  java-only=['9629,9234']  cpp-only=['9246,6000']
+     backward: java 64 pairs, cpp 64 pairs, rel=cross  java-only=['9629,9234']  cpp-only=['9246,6000']
+  tv_0__tv_143  dist J=0.8376820000000004
+     forward: java 65 pairs, cpp 65 pairs, rel=cross  java-only=['12026,7627']  cpp-only=['7200,6400']
+     backward: java 65 pairs, cpp 65 pairs, rel=cross  java-only=['12026,7627']  cpp-only=['7200,6400']
+  tv_0__tv_144  dist J=0.6358850000000013
+     forward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6000']
+     backward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6000']
+  tv_0__tv_145  dist J=0.14213600000000048
+     forward: java 65 pairs, cpp 66 pairs, rel=cross  java-only=['9635,9245']  cpp-only=['7200,6400', '9246,7200']
+     backward: java 65 pairs, cpp 66 pairs, rel=cross  java-only=['9635,9245']  cpp-only=['7200,6400', '9246,7200']
+  tv_0__tv_146  dist J=0.15460400000000174
+     forward: java 65 pairs, cpp 66 pairs, rel=cross  java-only=['11625,11624']  cpp-only=['9246,6000', '9635,6800']
+     backward: java 65 pairs, cpp 66 pairs, rel=cross  java-only=['11625,11624']  cpp-only=['9246,6000', '9635,6800']
+  tv_0__tv_147  dist J=0.1363050000000009
+     forward: java 67 pairs, cpp 68 pairs, rel=super  java-only=[]  cpp-only=['9246,7200']
+     backward: java 67 pairs, cpp 68 pairs, rel=super  java-only=[]  cpp-only=['9246,7200']
+  tv_0__tv_148  dist J=0.09259499999999987
+     forward: java 70 pairs, cpp 69 pairs, rel=sub  java-only=['9246,9246']  cpp-only=[]
+     backward: java 70 pairs, cpp 69 pairs, rel=sub  java-only=['9246,9246']  cpp-only=[]
+  tv_0__tv_149  dist J=0.05278200000000144
+     forward: java 68 pairs, cpp 70 pairs, rel=super  java-only=[]  cpp-only=['6400,6000', '7200,7200']
+     backward: java 68 pairs, cpp 70 pairs, rel=super  java-only=[]  cpp-only=['6400,6000', '7200,7200']
+  tv_0__tv_15  dist J=0.8559530000000001
+     forward: java 62 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6000', '9635,7200']
+     backward: java 62 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6000', '9635,7200']
+  tv_0__tv_150  dist J=0.09869899999999923
+     forward: java 68 pairs, cpp 68 pairs, rel=cross  java-only=['11625,11624', '9635,9636']  cpp-only=['6400,6400', '7200,7200']
+     backward: java 68 pairs, cpp 68 pairs, rel=cross  java-only=['11625,11624', '9635,9636']  cpp-only=['6400,6400', '7200,7200']
+  tv_0__tv_151  dist J=0.10827200000000026
+     forward: java 66 pairs, cpp 67 pairs, rel=super  java-only=[]  cpp-only=['7200,6000']
+     backward: java 66 pairs, cpp 67 pairs, rel=super  java-only=[]  cpp-only=['7200,6000']
+  tv_0__tv_152  dist J=0.6318160000000014
+     forward: java 63 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,7200']
+     backward: java 63 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,7200']
+  tv_0__tv_154  dist J=0.6485119999999998
+     forward: java 65 pairs, cpp 65 pairs, rel=cross  java-only=['12026,11640', '9635,9247']  cpp-only=['7200,6400', '9246,7200']
+     backward: java 65 pairs, cpp 65 pairs, rel=cross  java-only=['12026,11640', '9635,9247']  cpp-only=['7200,6400', '9246,7200']
+  tv_0__tv_155  dist J=0.6672740000000006
+     forward: java 63 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6400']
+     backward: java 63 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6400']
+  tv_0__tv_157  dist J=0.6628080000000018
+     forward: java 63 pairs, cpp 62 pairs, rel=sub  java-only=['12026,11641']  cpp-only=[]
+     backward: java 63 pairs, cpp 62 pairs, rel=sub  java-only=['12026,11641']  cpp-only=[]
+  tv_0__tv_158  dist J=0.7805220000000003
+     forward: java 63 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6400']
+     backward: java 63 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6400']
+  tv_0__tv_160  dist J=0.7971360000000018
+     forward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+     backward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+  tv_0__tv_161  dist J=0.8088860000000014
+     forward: java 62 pairs, cpp 62 pairs, rel=cross  java-only=['12026,12439']  cpp-only=['9635,7200']
+     backward: java 62 pairs, cpp 62 pairs, rel=cross  java-only=['12026,12439']  cpp-only=['9635,7200']
+  tv_0__tv_163  dist J=0.8389480000000014
+     forward: java 61 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6400', '9635,7200']
+     backward: java 61 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6400', '9635,7200']
+  tv_0__tv_164  dist J=0.8603630000000019
+     forward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+     backward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+  tv_0__tv_165  dist J=0.8501750000000001
+     forward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+     backward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+  tv_0__tv_169  dist J=0.9036340000000003
+     forward: java 62 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6000', '9635,7200']
+     backward: java 62 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6000', '9635,7200']
+  tv_0__tv_170  dist J=0.9016980000000016
+     forward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+     backward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+  tv_0__tv_171  dist J=0.9338730000000012
+     forward: java 60 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9246,6000', '9635,7200']
+     backward: java 60 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9246,6000', '9635,7200']
+  tv_0__tv_172  dist J=0.9312000000000025
+     forward: java 59 pairs, cpp 60 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+     backward: java 59 pairs, cpp 60 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+  tv_0__tv_173  dist J=0.9150050000000006
+     forward: java 63 pairs, cpp 63 pairs, rel=cross  java-only=['2799,19999']  cpp-only=['9246,6400']
+     backward: java 63 pairs, cpp 63 pairs, rel=cross  java-only=['2799,19999']  cpp-only=['9246,6400']
+  tv_0__tv_174  dist J=0.907642
+     forward: java 61 pairs, cpp 62 pairs, rel=cross  java-only=['7627,8025']  cpp-only=['9246,6000', '9635,6800']
+     backward: java 61 pairs, cpp 62 pairs, rel=cross  java-only=['7627,8025']  cpp-only=['9246,6000', '9635,6800']
+  tv_0__tv_175  dist J=0.876366
+     forward: java 61 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6400', '9635,7200']
+     backward: java 61 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6400', '9635,7200']
+  tv_0__tv_176  dist J=0.86956
+     forward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+     backward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+  tv_0__tv_177  dist J=0.8549809999999998
+     forward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6400']
+     backward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6400']
+  tv_0__tv_178  dist J=0.8562960000000002
+     forward: java 59 pairs, cpp 60 pairs, rel=super  java-only=[]  cpp-only=['9246,6000']
+     backward: java 59 pairs, cpp 60 pairs, rel=super  java-only=[]  cpp-only=['9246,6000']
+  tv_0__tv_179  dist J=0.8626110000000011
+     forward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,6400']
+     backward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,6400']
+  tv_0__tv_180  dist J=0.6219519999999998
+     forward: java 65 pairs, cpp 65 pairs, rel=cross  java-only=['7627,12027']  cpp-only=['9635,7200']
+     backward: java 65 pairs, cpp 65 pairs, rel=cross  java-only=['7627,12027']  cpp-only=['9635,7200']
+  tv_0__tv_181  dist J=0.6377080000000018
+     forward: java 59 pairs, cpp 60 pairs, rel=super  java-only=[]  cpp-only=['9635,6400']
+     backward: java 59 pairs, cpp 60 pairs, rel=super  java-only=[]  cpp-only=['9635,6400']
+  tv_0__tv_182  dist J=0.5836080000000008
+     forward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,6000']
+     backward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,6000']
+  tv_0__tv_183  dist J=0.5867240000000032
+     forward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,6400']
+     backward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,6400']
+  tv_0__tv_185  dist J=0.12414200000000042
+     forward: java 65 pairs, cpp 67 pairs, rel=super  java-only=[]  cpp-only=['2799,19999', '9246,6000']
+     backward: java 65 pairs, cpp 67 pairs, rel=super  java-only=[]  cpp-only=['2799,19999', '9246,6000']
+  tv_0__tv_187  dist J=0.13577199999999945
+     forward: java 65 pairs, cpp 66 pairs, rel=super  java-only=[]  cpp-only=['9246,6000']
+     backward: java 65 pairs, cpp 66 pairs, rel=super  java-only=[]  cpp-only=['9246,6000']
+  tv_0__tv_188  dist J=0.15833600000000048
+     forward: java 64 pairs, cpp 64 pairs, rel=cross  java-only=['7627,12027']  cpp-only=['9246,6000']
+     backward: java 64 pairs, cpp 64 pairs, rel=cross  java-only=['7627,12027']  cpp-only=['9246,6000']
+  tv_0__tv_189  dist J=0.20477700000000096
+     forward: java 62 pairs, cpp 61 pairs, rel=sub  java-only=['11625,7627']  cpp-only=[]
+     backward: java 62 pairs, cpp 61 pairs, rel=sub  java-only=['11625,7627']  cpp-only=[]
+  tv_0__tv_19  dist J=0.8758980000000006
+     forward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6000']
+     backward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6000']
+  tv_0__tv_190  dist J=0.18852100000000124
+     forward: java 62 pairs, cpp 61 pairs, rel=sub  java-only=['11625,7627']  cpp-only=[]
+     backward: java 62 pairs, cpp 61 pairs, rel=sub  java-only=['11625,7627']  cpp-only=[]
+  tv_0__tv_191  dist J=0.20202100000000087
+     forward: java 64 pairs, cpp 63 pairs, rel=sub  java-only=['7627,12027']  cpp-only=[]
+     backward: java 64 pairs, cpp 63 pairs, rel=sub  java-only=['7627,12027']  cpp-only=[]
+  tv_0__tv_192  dist J=0.23017800000000121
+     forward: java 65 pairs, cpp 63 pairs, rel=sub  java-only=['11625,7230', '7627,12028']  cpp-only=[]
+     backward: java 65 pairs, cpp 63 pairs, rel=sub  java-only=['11625,7230', '7627,12028']  cpp-only=[]
+  tv_0__tv_195  dist J=0.27247800000000066
+     forward: java 63 pairs, cpp 62 pairs, rel=sub  java-only=['7627,12028']  cpp-only=[]
+     backward: java 63 pairs, cpp 62 pairs, rel=sub  java-only=['7627,12028']  cpp-only=[]
+  tv_0__tv_197  dist J=0.33739000000000036
+     forward: java 66 pairs, cpp 65 pairs, rel=sub  java-only=['11625,7626']  cpp-only=[]
+     backward: java 66 pairs, cpp 65 pairs, rel=sub  java-only=['11625,7626']  cpp-only=[]
+  tv_0__tv_198  dist J=0.8520990000000006
+     forward: java 62 pairs, cpp 62 pairs, rel=cross  java-only=['9635,9631']  cpp-only=['7200,7200']
+     backward: java 62 pairs, cpp 62 pairs, rel=cross  java-only=['9635,9631']  cpp-only=['7200,7200']
+  tv_0__tv_199  dist J=0.8654110000000002
+     forward: java 62 pairs, cpp 61 pairs, rel=sub  java-only=['7627,11633']  cpp-only=[]
+     backward: java 62 pairs, cpp 61 pairs, rel=sub  java-only=['7627,11633']  cpp-only=[]
+  tv_0__tv_2  dist J=0.6264650000000003
+     forward: java 63 pairs, cpp 63 pairs, rel=cross  java-only=['9635,9636']  cpp-only=['9246,7200']
+     backward: java 63 pairs, cpp 63 pairs, rel=cross  java-only=['9635,9636']  cpp-only=['9246,7200']
+  tv_0__tv_20  dist J=0.895632000000002
+     forward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+     backward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+  tv_0__tv_200  dist J=0.8853200000000016
+     forward: java 61 pairs, cpp 61 pairs, rel=cross  java-only=['9635,10030']  cpp-only=['9246,7200']
+     backward: java 61 pairs, cpp 61 pairs, rel=cross  java-only=['9635,10030']  cpp-only=['9246,7200']
+  tv_0__tv_202  dist J=0.8882540000000018
+     forward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,6400']
+     backward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,6400']
+  tv_0__tv_204  dist J=0.876187000000002
+     forward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,6000']
+     backward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,6000']
+  tv_0__tv_209  dist J=0.9302209999999999
+     forward: java 64 pairs, cpp 65 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+     backward: java 64 pairs, cpp 65 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+  tv_0__tv_21  dist J=0.8954580000000018
+     forward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+     backward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+  tv_0__tv_210  dist J=0.9227350000000013
+     forward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+     backward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+  tv_0__tv_211  dist J=0.9118330000000017
+     forward: java 64 pairs, cpp 63 pairs, rel=sub  java-only=['12026,7626']  cpp-only=[]
+     backward: java 64 pairs, cpp 63 pairs, rel=sub  java-only=['12026,7626']  cpp-only=[]
+  tv_0__tv_212  dist J=0.7943110000000003
+     forward: java 66 pairs, cpp 65 pairs, rel=cross  java-only=['2799,399', '7627,11625']  cpp-only=['9246,6000']
+     backward: java 66 pairs, cpp 65 pairs, rel=cross  java-only=['2799,399', '7627,11625']  cpp-only=['9246,6000']
+  tv_0__tv_213  dist J=0.8966520000000018
+     forward: java 64 pairs, cpp 64 pairs, rel=cross  java-only=['12026,7626']  cpp-only=['9635,6400']
+     backward: java 64 pairs, cpp 64 pairs, rel=cross  java-only=['12026,7626']  cpp-only=['9635,6400']
+  tv_0__tv_214  dist J=0.8751740000000003
+     forward: java 64 pairs, cpp 65 pairs, rel=cross  java-only=['2799,399']  cpp-only=['9246,6000', '9635,7200']
+     backward: java 64 pairs, cpp 65 pairs, rel=cross  java-only=['2799,399']  cpp-only=['9246,6000', '9635,7200']
+  tv_0__tv_215  dist J=0.8332100000000009
+     forward: java 63 pairs, cpp 63 pairs, rel=cross  java-only=['12026,7626']  cpp-only=['9635,6800']
+     backward: java 63 pairs, cpp 63 pairs, rel=cross  java-only=['12026,7626']  cpp-only=['9635,6800']
+  tv_0__tv_216  dist J=0.8656310000000003
+     forward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6000']
+     backward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6000']
+  tv_0__tv_217  dist J=0.8415429999999997
+     forward: java 63 pairs, cpp 63 pairs, rel=cross  java-only=['9635,9235']  cpp-only=['9246,6800']
+     backward: java 63 pairs, cpp 63 pairs, rel=cross  java-only=['9635,9235']  cpp-only=['9246,6800']
+  tv_0__tv_218  dist J=0.22203799999999974
+     forward: java 65 pairs, cpp 64 pairs, rel=cross  java-only=['12026,12027', '7627,7627']  cpp-only=['9246,6400']
+     backward: java 65 pairs, cpp 64 pairs, rel=cross  java-only=['12026,12027', '7627,7627']  cpp-only=['9246,6400']
+  tv_0__tv_219  dist J=0.15309500000000065
+     forward: java 63 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6400']
+     backward: java 63 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6400']
+  tv_0__tv_22  dist J=0.9302610000000008
+     forward: java 61 pairs, cpp 62 pairs, rel=cross  java-only=['7627,8025']  cpp-only=['9246,6000', '9635,7200']
+     backward: java 61 pairs, cpp 62 pairs, rel=cross  java-only=['7627,8025']  cpp-only=['9246,6000', '9635,7200']
+  tv_0__tv_220  dist J=0.1454829999999997
+     forward: java 66 pairs, cpp 66 pairs, rel=cross  java-only=['11625,11624']  cpp-only=['9635,6800']
+     backward: java 66 pairs, cpp 66 pairs, rel=cross  java-only=['11625,11624']  cpp-only=['9635,6800']
+  tv_0__tv_222  dist J=0.11331899999999873
+     forward: java 66 pairs, cpp 66 pairs, rel=cross  java-only=['2799,399']  cpp-only=['9246,6800']
+     backward: java 66 pairs, cpp 66 pairs, rel=cross  java-only=['2799,399']  cpp-only=['9246,6800']
+  tv_0__tv_224  dist J=0.06628300000000031
+     forward: java 68 pairs, cpp 70 pairs, rel=super  java-only=[]  cpp-only=['6400,6000', '7200,7200']
+     backward: java 68 pairs, cpp 70 pairs, rel=super  java-only=[]  cpp-only=['6400,6000', '7200,7200']
+  tv_0__tv_226  dist J=0.6315600000000001
+     forward: java 63 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6000']
+     backward: java 63 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6000']
+  tv_0__tv_227  dist J=0.16181300000000173
+     forward: java 63 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+     backward: java 63 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+  tv_0__tv_228  dist J=0.6504740000000014
+     forward: java 64 pairs, cpp 63 pairs, rel=sub  java-only=['12026,11640']  cpp-only=[]
+     backward: java 64 pairs, cpp 63 pairs, rel=sub  java-only=['12026,11640']  cpp-only=[]
+  tv_0__tv_229  dist J=0.6592800000000016
+     forward: java 63 pairs, cpp 62 pairs, rel=sub  java-only=['12026,11640']  cpp-only=[]
+     backward: java 63 pairs, cpp 62 pairs, rel=sub  java-only=['12026,11640']  cpp-only=[]
+  tv_0__tv_23  dist J=0.9255610000000005
+     forward: java 59 pairs, cpp 60 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+     backward: java 59 pairs, cpp 60 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+  tv_0__tv_230  dist J=0.20053700000000052
+     forward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+     backward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+  tv_0__tv_232  dist J=0.7797380000000014
+     forward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+     backward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+  tv_0__tv_235  dist J=0.800667000000002
+     forward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+     backward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+  tv_0__tv_237  dist J=0.8315350000000009
+     forward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+     backward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+  tv_0__tv_238  dist J=0.8504280000000024
+     forward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+     backward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+  tv_0__tv_24  dist J=0.9103980000000008
+     forward: java 60 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9246,6400', '9635,7200']
+     backward: java 60 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9246,6400', '9635,7200']
+  tv_0__tv_240  dist J=0.8508410000000001
+     forward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6400']
+     backward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6400']
+  tv_0__tv_241  dist J=0.8725090000000018
+     forward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+     backward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+  tv_0__tv_243  dist J=0.89336
+     forward: java 62 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6400', '9635,7200']
+     backward: java 62 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6400', '9635,7200']
+  tv_0__tv_244  dist J=0.9079150000000022
+     forward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+     backward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+  tv_0__tv_246  dist J=0.9482860000000004
+     forward: java 60 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9246,6000', '9635,7200']
+     backward: java 60 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9246,6000', '9635,7200']
+  tv_0__tv_247  dist J=0.9214120000000015
+     forward: java 60 pairs, cpp 60 pairs, rel=cross  java-only=['7627,8025']  cpp-only=['9635,6800']
+     backward: java 60 pairs, cpp 60 pairs, rel=cross  java-only=['7627,8025']  cpp-only=['9635,6800']
+  tv_0__tv_248  dist J=0.9220550000000007
+     forward: java 60 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9246,6000', '9635,7200']
+     backward: java 60 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9246,6000', '9635,7200']
+  tv_0__tv_249  dist J=0.895072999999999
+     forward: java 63 pairs, cpp 63 pairs, rel=cross  java-only=['2799,19999']  cpp-only=['9246,6000']
+     backward: java 63 pairs, cpp 63 pairs, rel=cross  java-only=['2799,19999']  cpp-only=['9246,6000']
+  tv_0__tv_25  dist J=0.9005620000000009
+     forward: java 61 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6400', '9635,7200']
+     backward: java 61 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6400', '9635,7200']
+  tv_0__tv_250  dist J=0.8743139999999997
+     forward: java 62 pairs, cpp 63 pairs, rel=cross  java-only=['2799,19999']  cpp-only=['9246,6000', '9635,6800']
+     backward: java 62 pairs, cpp 63 pairs, rel=cross  java-only=['2799,19999']  cpp-only=['9246,6000', '9635,6800']
+  tv_0__tv_26  dist J=0.8684759999999994
+     forward: java 63 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6400']
+     backward: java 63 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6400']
+  tv_0__tv_27  dist J=0.8668940000000007
+     forward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6400']
+     backward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6400']
+  tv_0__tv_28  dist J=0.8456280000000004
+     forward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6400']
+     backward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6400']
+  tv_0__tv_29  dist J=0.8433170000000008
+     forward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6000']
+     backward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6000']
+  tv_0__tv_3  dist J=0.6275560000000017
+     forward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,7200']
+     backward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,7200']
+  tv_0__tv_30  dist J=0.8538630000000014
+     forward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+     backward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+  tv_0__tv_31  dist J=0.6112169999999999
+     forward: java 65 pairs, cpp 65 pairs, rel=cross  java-only=['2799,17599']  cpp-only=['9246,6000']
+     backward: java 65 pairs, cpp 65 pairs, rel=cross  java-only=['2799,17599']  cpp-only=['9246,6000']
+  tv_0__tv_33  dist J=0.5767330000000009
+     forward: java 65 pairs, cpp 65 pairs, rel=cross  java-only=['7627,12027']  cpp-only=['9635,7200']
+     backward: java 65 pairs, cpp 65 pairs, rel=cross  java-only=['7627,12027']  cpp-only=['9635,7200']
+  tv_0__tv_34  dist J=0.1591940000000016
+     forward: java 65 pairs, cpp 64 pairs, rel=sub  java-only=['7627,12027']  cpp-only=[]
+     backward: java 65 pairs, cpp 64 pairs, rel=sub  java-only=['7627,12027']  cpp-only=[]
+  tv_0__tv_35  dist J=0.14279800000000076
+     forward: java 65 pairs, cpp 65 pairs, rel=cross  java-only=['2799,17599']  cpp-only=['9246,6000']
+     backward: java 65 pairs, cpp 65 pairs, rel=cross  java-only=['2799,17599']  cpp-only=['9246,6000']
+  tv_0__tv_36  dist J=0.11415700000000017
+     forward: java 65 pairs, cpp 66 pairs, rel=super  java-only=[]  cpp-only=['9246,6000']
+     backward: java 65 pairs, cpp 66 pairs, rel=super  java-only=[]  cpp-only=['9246,6000']
+  tv_0__tv_37  dist J=0.11159400000000091
+     forward: java 65 pairs, cpp 66 pairs, rel=super  java-only=[]  cpp-only=['9246,6400']
+     backward: java 65 pairs, cpp 66 pairs, rel=super  java-only=[]  cpp-only=['9246,6400']
+  tv_0__tv_38  dist J=0.13335999999999848
+     forward: java 65 pairs, cpp 65 pairs, rel=cross  java-only=['11625,8025']  cpp-only=['9246,6400']
+     backward: java 65 pairs, cpp 65 pairs, rel=cross  java-only=['11625,8025']  cpp-only=['9246,6400']
+  tv_0__tv_39  dist J=0.15418500000000013
+     forward: java 64 pairs, cpp 64 pairs, rel=cross  java-only=['9635,10036']  cpp-only=['9246,6800']
+     backward: java 64 pairs, cpp 64 pairs, rel=cross  java-only=['9635,10036']  cpp-only=['9246,6800']
+  tv_0__tv_4  dist J=0.6486910000000011
+     forward: java 62 pairs, cpp 62 pairs, rel=cross  java-only=['9635,9247']  cpp-only=['9246,6800']
+     backward: java 62 pairs, cpp 62 pairs, rel=cross  java-only=['9635,9247']  cpp-only=['9246,6800']
+  tv_0__tv_40  dist J=0.16589300000000162
+     forward: java 62 pairs, cpp 61 pairs, rel=sub  java-only=['11625,7627']  cpp-only=[]
+     backward: java 62 pairs, cpp 61 pairs, rel=sub  java-only=['11625,7627']  cpp-only=[]
+  tv_0__tv_41  dist J=0.6764910000000007
+     forward: java 59 pairs, cpp 58 pairs, rel=sub  java-only=['7627,12027']  cpp-only=[]
+     backward: java 59 pairs, cpp 58 pairs, rel=sub  java-only=['7627,12027']  cpp-only=[]
+  tv_0__tv_42  dist J=0.2006400000000006
+     forward: java 63 pairs, cpp 63 pairs, rel=cross  java-only=['7627,12027']  cpp-only=['9635,6800']
+     backward: java 63 pairs, cpp 63 pairs, rel=cross  java-only=['7627,12027']  cpp-only=['9635,6800']
+  tv_0__tv_43  dist J=0.21971600000000135
+     forward: java 62 pairs, cpp 61 pairs, rel=sub  java-only=['7627,11632']  cpp-only=[]
+     backward: java 62 pairs, cpp 61 pairs, rel=sub  java-only=['7627,11632']  cpp-only=[]
+  tv_0__tv_44  dist J=0.22738400000000114
+     forward: java 62 pairs, cpp 61 pairs, rel=sub  java-only=['11625,7626']  cpp-only=[]
+     backward: java 62 pairs, cpp 61 pairs, rel=sub  java-only=['11625,7626']  cpp-only=[]
+  tv_0__tv_46  dist J=0.3741840000000012
+     forward: java 63 pairs, cpp 62 pairs, rel=sub  java-only=['7627,12028']  cpp-only=[]
+     backward: java 63 pairs, cpp 62 pairs, rel=sub  java-only=['7627,12028']  cpp-only=[]
+  tv_0__tv_48  dist J=0.8188910000000016
+     forward: java 62 pairs, cpp 62 pairs, rel=cross  java-only=['9635,9631']  cpp-only=['7200,7200']
+     backward: java 62 pairs, cpp 62 pairs, rel=cross  java-only=['9635,9631']  cpp-only=['7200,7200']
+  tv_0__tv_49  dist J=0.8474690000000012
+     forward: java 62 pairs, cpp 62 pairs, rel=cross  java-only=['9246,10030']  cpp-only=['7200,7200']
+     backward: java 62 pairs, cpp 62 pairs, rel=cross  java-only=['9246,10030']  cpp-only=['7200,7200']
+  tv_0__tv_5  dist J=0.6478280000000004
+     forward: java 62 pairs, cpp 62 pairs, rel=cross  java-only=['12026,11640']  cpp-only=['9635,7200']
+     backward: java 62 pairs, cpp 62 pairs, rel=cross  java-only=['12026,11640']  cpp-only=['9635,7200']
+  tv_0__tv_50  dist J=0.8626970000000005
+     forward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9246,7200']
+     backward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9246,7200']
+  tv_0__tv_51  dist J=0.8850420000000001
+     forward: java 61 pairs, cpp 61 pairs, rel=cross  java-only=['9635,10030']  cpp-only=['9246,7200']
+     backward: java 61 pairs, cpp 61 pairs, rel=cross  java-only=['9635,10030']  cpp-only=['9246,7200']
+  tv_0__tv_52  dist J=0.8910650000000016
+     forward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+     backward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+  tv_0__tv_53  dist J=0.8848400000000021
+     forward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+     backward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+  tv_0__tv_54  dist J=0.8729430000000021
+     forward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,6400']
+     backward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,6400']
+  tv_0__tv_55  dist J=0.8709050000000008
+     forward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,6000']
+     backward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,6000']
+  tv_0__tv_57  dist J=0.8824320000000005
+     forward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+     backward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+  tv_0__tv_58  dist J=0.9140350000000016
+     forward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+     backward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+  tv_0__tv_59  dist J=0.9369620000000005
+     forward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,6400']
+     backward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9635,6400']
+  tv_0__tv_6  dist J=0.6620770000000009
+     forward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+     backward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+  tv_0__tv_60  dist J=0.9280170000000005
+     forward: java 63 pairs, cpp 65 pairs, rel=super  java-only=[]  cpp-only=['9246,5600', '9635,7200']
+     backward: java 63 pairs, cpp 65 pairs, rel=super  java-only=[]  cpp-only=['9246,5600', '9635,7200']
+  tv_0__tv_61  dist J=0.9197690000000016
+     forward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+     backward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+  tv_0__tv_62  dist J=0.9097640000000018
+     forward: java 64 pairs, cpp 63 pairs, rel=sub  java-only=['12026,7626']  cpp-only=[]
+     backward: java 64 pairs, cpp 63 pairs, rel=sub  java-only=['12026,7626']  cpp-only=[]
+  tv_0__tv_63  dist J=0.9092729999999994
+     forward: java 63 pairs, cpp 64 pairs, rel=cross  java-only=['12026,7626']  cpp-only=['9246,5600', '9635,6800']
+     backward: java 63 pairs, cpp 64 pairs, rel=cross  java-only=['12026,7626']  cpp-only=['9246,5600', '9635,6800']
+  tv_0__tv_64  dist J=0.8881600000000001
+     forward: java 63 pairs, cpp 65 pairs, rel=super  java-only=[]  cpp-only=['9246,5600', '9635,6800']
+     backward: java 63 pairs, cpp 65 pairs, rel=super  java-only=[]  cpp-only=['9246,5600', '9635,6800']
+  tv_0__tv_65  dist J=0.8683720000000009
+     forward: java 65 pairs, cpp 65 pairs, rel=cross  java-only=['9629,9634']  cpp-only=['9246,6000']
+     backward: java 65 pairs, cpp 65 pairs, rel=cross  java-only=['9629,9634']  cpp-only=['9246,6000']
+  tv_0__tv_66  dist J=0.8272500000000006
+     forward: java 64 pairs, cpp 63 pairs, rel=cross  java-only=['12026,7626', '2799,399']  cpp-only=['9635,6400']
+     backward: java 64 pairs, cpp 63 pairs, rel=cross  java-only=['12026,7626', '2799,399']  cpp-only=['9635,6400']
+  tv_0__tv_67  dist J=0.8275400000000004
+     forward: java 65 pairs, cpp 64 pairs, rel=cross  java-only=['2799,2799', '9629,9634']  cpp-only=['9246,6000']
+     backward: java 65 pairs, cpp 64 pairs, rel=cross  java-only=['2799,2799', '9629,9634']  cpp-only=['9246,6000']
+  tv_0__tv_68  dist J=0.8326849999999997
+     forward: java 66 pairs, cpp 66 pairs, rel=cross  java-only=['12026,7626', '2799,2399']  cpp-only=['7200,6000', '9246,6800']
+     backward: java 66 pairs, cpp 66 pairs, rel=cross  java-only=['12026,7626', '2799,2399']  cpp-only=['7200,6000', '9246,6800']
+  tv_0__tv_69  dist J=0.22101299999999957
+     forward: java 62 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6000', '9635,6800']
+     backward: java 62 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6000', '9635,6800']
+  tv_0__tv_70  dist J=0.15595899999999996
+     forward: java 64 pairs, cpp 64 pairs, rel=cross  java-only=['12026,12027']  cpp-only=['9635,7200']
+     backward: java 64 pairs, cpp 64 pairs, rel=cross  java-only=['12026,12027']  cpp-only=['9635,7200']
+  tv_0__tv_72  dist J=0.1499710000000024
+     forward: java 66 pairs, cpp 65 pairs, rel=sub  java-only=['2799,2799']  cpp-only=[]
+     backward: java 66 pairs, cpp 65 pairs, rel=sub  java-only=['2799,2799']  cpp-only=[]
+  tv_0__tv_73  dist J=0.1052879999999995
+     forward: java 67 pairs, cpp 68 pairs, rel=super  java-only=[]  cpp-only=['9246,7200']
+     backward: java 67 pairs, cpp 68 pairs, rel=super  java-only=[]  cpp-only=['9246,7200']
+  tv_0__tv_74  dist J=0.061268999999999074
+     forward: java 70 pairs, cpp 71 pairs, rel=cross  java-only=['2799,2799']  cpp-only=['6400,6000', '7200,7200']
+     backward: java 70 pairs, cpp 71 pairs, rel=cross  java-only=['2799,2799']  cpp-only=['6400,6000', '7200,7200']
+  tv_0__tv_75  dist J=0.07467799999999905
+     forward: java 68 pairs, cpp 70 pairs, rel=super  java-only=[]  cpp-only=['6400,6000', '7200,7200']
+     backward: java 68 pairs, cpp 70 pairs, rel=super  java-only=[]  cpp-only=['6400,6000', '7200,7200']
+  tv_0__tv_76  dist J=0.11484800000000095
+     forward: java 65 pairs, cpp 65 pairs, rel=cross  java-only=['9635,9636']  cpp-only=['9246,7200']
+     backward: java 65 pairs, cpp 65 pairs, rel=cross  java-only=['9635,9636']  cpp-only=['9246,7200']
+  tv_0__tv_77  dist J=0.6234759999999996
+     forward: java 63 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+     backward: java 63 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+  tv_0__tv_78  dist J=0.6390810000000007
+     forward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+     backward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+  tv_0__tv_79  dist J=0.6480250000000003
+     forward: java 63 pairs, cpp 63 pairs, rel=cross  java-only=['9635,9247']  cpp-only=['9246,7200']
+     backward: java 63 pairs, cpp 63 pairs, rel=cross  java-only=['9635,9247']  cpp-only=['9246,7200']
+  tv_0__tv_8  dist J=0.656779000000002
+     forward: java 63 pairs, cpp 62 pairs, rel=sub  java-only=['12026,11641']  cpp-only=[]
+     backward: java 63 pairs, cpp 62 pairs, rel=sub  java-only=['12026,11641']  cpp-only=[]
+  tv_0__tv_80  dist J=0.6500490000000002
+     forward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+     backward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+  tv_0__tv_81  dist J=0.6534080000000003
+     forward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+     backward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+  tv_0__tv_83  dist J=0.7792370000000014
+     forward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+     backward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+  tv_0__tv_84  dist J=0.7717890000000022
+     forward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+     backward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,6800']
+  tv_0__tv_85  dist J=0.7807639999999999
+     forward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6400']
+     backward: java 62 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6400']
+  tv_0__tv_86  dist J=0.7996010000000009
+     forward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+     backward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+  tv_0__tv_88  dist J=0.8321020000000022
+     forward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+     backward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+  tv_0__tv_89  dist J=0.8502940000000007
+     forward: java 62 pairs, cpp 62 pairs, rel=cross  java-only=['12026,11643']  cpp-only=['9635,6800']
+     backward: java 62 pairs, cpp 62 pairs, rel=cross  java-only=['12026,11643']  cpp-only=['9635,6800']
+  tv_0__tv_9  dist J=0.7797190000000015
+     forward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+     backward: java 60 pairs, cpp 61 pairs, rel=super  java-only=[]  cpp-only=['9635,7200']
+  tv_0__tv_91  dist J=0.8494280000000002
+     forward: java 61 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6000', '9635,7200']
+     backward: java 61 pairs, cpp 63 pairs, rel=super  java-only=[]  cpp-only=['9246,6000', '9635,7200']
+  tv_0__tv_92  dist J=0.8682180000000018
+     forward: java 62 pairs, cpp 62 pairs, rel=cross  java-only=['12026,11644']  cpp-only=['9635,7200']
+     backward: java 62 pairs, cpp 62 pairs, rel=cross  java-only=['12026,11644']  cpp-only=['9635,7200']
+  tv_0__tv_94  dist J=0.88957
+     forward: java 62 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6000', '9635,7200']
+     backward: java 62 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6000', '9635,7200']
+  tv_0__tv_95  dist J=0.9040950000000002
+     forward: java 62 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6000', '9635,7200']
+     backward: java 62 pairs, cpp 64 pairs, rel=super  java-only=[]  cpp-only=['9246,6000', '9635,7200']
+  tv_0__tv_96  dist J=0.9130690000000005
+     forward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9246,6400']
+     backward: java 61 pairs, cpp 62 pairs, rel=super  java-only=[]  cpp-only=['9246,6400']
+  tv_0__tv_97  dist J=0.9509829999999999
+     forward: java 61 pairs, cpp 62 pairs, rel=cross  java-only=['7627,8025']  cpp-only=['9246,6000', '9635,7200']
+     backward: java 61 pairs, cpp 62 pairs, rel=cross  java-only=['7627,8025']  cpp-only=['9246,6000', '9635,7200']
+  tv_0__tv_98  dist J=0.9159880000000008
+     forward: java 60 pairs, cpp 60 pairs, rel=cross  java-only=['7627,8025']  cpp-only=['9635,6800']
+     backward: java 60 pairs, cpp 60 pairs, rel=cross  java-only=['7627,8025']  cpp-only=['9635,6800']
+  tv_0__tv_99  dist J=0.9070580000000011
+     forward: java 63 pairs, cpp 63 pairs, rel=cross  java-only=['2799,19999']  cpp-only=['9246,6000']
+     backward: java 63 pairs, cpp 63 pairs, rel=cross  java-only=['2799,19999']  cpp-only=['9246,6000']
+  diff kinds:
+     ('forward', 'super', 'size cpp more') 111
+     ('backward', 'super', 'size cpp more') 111
+     ('forward', 'cross', 'size same') 50
+     ('backward', 'cross', 'size same') 50
+     ('forward', 'sub', 'size cpp fewer') 28
+     ('backward', 'sub', 'size cpp fewer') 28
+     ('forward', 'cross', 'size cpp more') 9
+     ('backward', 'cross', 'size cpp more') 9
+     ('forward', 'cross', 'size cpp fewer') 4
+     ('backward', 'cross', 'size cpp fewer') 4

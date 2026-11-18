@@ -17,8 +17,8 @@ Usage (from test(W1)):
   python run_all.py examples         # one set
   python run_all.py w1 --programs W1 CO
   python run_all.py --workers 4
-  python run_all.py --name "After .jar replaced by java"
-  python run_all.py --name "After CO-MTED converted to cpp" \
+  python run_all.py --name after_jar_to_java
+  python run_all.py --name after_comted_to_cpp \
       --exe CO=../Converted_Merge_Tree_Comparison/CO-MTED.exe \
       --out ../Converted_Merge_Tree_Comparison/results
 

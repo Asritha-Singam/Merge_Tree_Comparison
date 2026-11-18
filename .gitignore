@@ -20,3 +20,6 @@ swap_tests/cls_src/
 swap_tests/results_*.jsonl
 
 Converted_Merge_Tree_Comparison/*.exe
+
+# Step-by-step CO-MTED run walkthroughs (generated locally)
+#walkthroughs/

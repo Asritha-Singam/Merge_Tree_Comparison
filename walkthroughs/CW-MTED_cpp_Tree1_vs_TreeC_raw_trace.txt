@@ -1,0 +1,291 @@
+# CW-MTED.cpp traced run: Examples/Inputs/Tree1.jt vs Examples/Inputs/TreeC.jt
+# output: 108.727273, forward map 3,3 2,2 1,1 (byte-identical to results/after_cwmted_to_cpp)
+
+TREE1 post-order:
+  idx 0 = T1:3 children:
+  idx 1 = T1:5 children:
+  idx 2 = T1:8 children:
+  idx 3 = T1:9 children:
+  idx 4 = T1:6 children: 8 9
+  idx 5 = T1:4 children: 5 6
+  idx 6 = T1:2 children: 3 4
+  idx 7 = T1:1 children: 2
+TREEC post-order:
+  idx 0 = TC:3 children:
+  idx 1 = TC:4 children:
+  idx 2 = TC:2 children: 3 4
+  idx 3 = TC:1 children: 2
+DF(T1:3,-) = 0.0   [delete forest]
+DT(T1:3,-) = 19.0   [delete subtree]
+DF(T1:5,-) = 0.0   [delete forest]
+DT(T1:5,-) = 7.5   [delete subtree]
+DF(T1:8,-) = 0.0   [delete forest]
+DT(T1:8,-) = 2.5   [delete subtree]
+DF(T1:9,-) = 0.0   [delete forest]
+DT(T1:9,-) = 25.0   [delete subtree]
+DF(T1:6,-) = 27.5   [delete forest]
+DT(T1:6,-) = 30.0   [delete subtree]
+DF(T1:4,-) = 37.5   [delete forest]
+DT(T1:4,-) = 45.0   [delete subtree]
+DF(T1:2,-) = 64.0   [delete forest]
+DT(T1:2,-) = 83.0   [delete subtree]
+DF(T1:1,-) = 83.0   [delete forest]
+DT(T1:1,-) = 108.0   [delete subtree]
+DF(-,TC:3) = 0.0   [delete forest]
+DT(-,TC:3) = 0.1136365   [delete subtree]
+DF(-,TC:4) = 0.0   [delete forest]
+DT(-,TC:4) = 0.25   [delete subtree]
+DF(-,TC:2) = 0.36363650000000003   [delete forest]
+DT(-,TC:2) = 0.47727300000000006   [delete subtree]
+DF(-,TC:1) = 0.47727300000000006   [delete forest]
+DT(-,TC:1) = 0.7272730000000001   [delete subtree]
+  MM(T1:3,TC:3): both leaves -> 0
+DF(T1:3,TC:3): case1=MAX  case2=MAX  case3(MM)=0.0  -> CASE3 = 0.0
+DT(T1:3,TC:3): case1=MAX  case2=MAX  case3=DF+relabel=19.1136365  -> CASE3 (match T1:3<->TC:3) = 19.1136365
+  MM(T1:3,TC:4): both leaves -> 0
+DF(T1:3,TC:4): case1=MAX  case2=MAX  case3(MM)=0.0  -> CASE3 = 0.0
+DT(T1:3,TC:4): case1=MAX  case2=MAX  case3=DF+relabel=19.25  -> CASE3 (match T1:3<->TC:4) = 19.25
+  MM(T1:3,TC:2): cost matrix rows = children of T1:3 then dummies, cols = children of TC:2 then dummies
+    - | TC:3:0.1136365 TC:4:0.25
+    - | TC:3:0.1136365 TC:4:0.25
+    matched - <-> TC:3  weight 0.1136365
+    matched - <-> TC:4  weight 0.25
+    MM total = 0.36363650000000003
+DF(T1:3,TC:2): case1=0.36363650000000003 via TC:3  case2=MAX  case3(MM)=0.36363650000000003  -> CASE3 = 0.36363650000000003
+DT(T1:3,TC:2): case1=19.477273 via TC:3  case2=MAX  case3=DF+relabel=19.477272999999997  -> CASE3 (match T1:3<->TC:2) = 19.477272999999997
+  MM(T1:3,TC:1): cost matrix rows = children of T1:3 then dummies, cols = children of TC:1 then dummies
+    - | TC:2:0.47727300000000006
+    matched - <-> TC:2  weight 0.47727300000000006
+    MM total = 0.47727300000000006
+DF(T1:3,TC:1): case1=0.47727300000000006 via TC:2  case2=MAX  case3(MM)=0.47727300000000006  -> CASE3 = 0.47727300000000006
+DT(T1:3,TC:1): case1=19.727272999999997 via TC:2  case2=MAX  case3=DF+relabel=19.727273  -> CASE3 (match T1:3<->TC:1) = 19.727273
+  MM(T1:5,TC:3): both leaves -> 0
+DF(T1:5,TC:3): case1=MAX  case2=MAX  case3(MM)=0.0  -> CASE3 = 0.0
+DT(T1:5,TC:3): case1=MAX  case2=MAX  case3=DF+relabel=7.6136365  -> CASE3 (match T1:5<->TC:3) = 7.6136365
+  MM(T1:5,TC:4): both leaves -> 0
+DF(T1:5,TC:4): case1=MAX  case2=MAX  case3(MM)=0.0  -> CASE3 = 0.0
+DT(T1:5,TC:4): case1=MAX  case2=MAX  case3=DF+relabel=7.75  -> CASE3 (match T1:5<->TC:4) = 7.75
+  MM(T1:5,TC:2): cost matrix rows = children of T1:5 then dummies, cols = children of TC:2 then dummies
+    - | TC:3:0.1136365 TC:4:0.25
+    - | TC:3:0.1136365 TC:4:0.25
+    matched - <-> TC:3  weight 0.1136365
+    matched - <-> TC:4  weight 0.25
+    MM total = 0.36363650000000003
+DF(T1:5,TC:2): case1=0.36363650000000003 via TC:3  case2=MAX  case3(MM)=0.36363650000000003  -> CASE3 = 0.36363650000000003
+DT(T1:5,TC:2): case1=7.977273 via TC:3  case2=MAX  case3=DF+relabel=7.977273  -> CASE3 (match T1:5<->TC:2) = 7.977273
+  MM(T1:5,TC:1): cost matrix rows = children of T1:5 then dummies, cols = children of TC:1 then dummies
+    - | TC:2:0.47727300000000006
+    matched - <-> TC:2  weight 0.47727300000000006
+    MM total = 0.47727300000000006
+DF(T1:5,TC:1): case1=0.47727300000000006 via TC:2  case2=MAX  case3(MM)=0.47727300000000006  -> CASE3 = 0.47727300000000006
+DT(T1:5,TC:1): case1=8.227273 via TC:2  case2=MAX  case3=DF+relabel=8.227273  -> CASE3 (match T1:5<->TC:1) = 8.227273
+  MM(T1:8,TC:3): both leaves -> 0
+DF(T1:8,TC:3): case1=MAX  case2=MAX  case3(MM)=0.0  -> CASE3 = 0.0
+DT(T1:8,TC:3): case1=MAX  case2=MAX  case3=DF+relabel=2.6136365  -> CASE3 (match T1:8<->TC:3) = 2.6136365
+  MM(T1:8,TC:4): both leaves -> 0
+DF(T1:8,TC:4): case1=MAX  case2=MAX  case3(MM)=0.0  -> CASE3 = 0.0
+DT(T1:8,TC:4): case1=MAX  case2=MAX  case3=DF+relabel=2.75  -> CASE3 (match T1:8<->TC:4) = 2.75
+  MM(T1:8,TC:2): cost matrix rows = children of T1:8 then dummies, cols = children of TC:2 then dummies
+    - | TC:3:0.1136365 TC:4:0.25
+    - | TC:3:0.1136365 TC:4:0.25
+    matched - <-> TC:3  weight 0.1136365
+    matched - <-> TC:4  weight 0.25
+    MM total = 0.36363650000000003
+DF(T1:8,TC:2): case1=0.36363650000000003 via TC:3  case2=MAX  case3(MM)=0.36363650000000003  -> CASE3 = 0.36363650000000003
+DT(T1:8,TC:2): case1=2.9772730000000003 via TC:3  case2=MAX  case3=DF+relabel=2.9772730000000003  -> CASE3 (match T1:8<->TC:2) = 2.9772730000000003
+  MM(T1:8,TC:1): cost matrix rows = children of T1:8 then dummies, cols = children of TC:1 then dummies
+    - | TC:2:0.47727300000000006
+    matched - <-> TC:2  weight 0.47727300000000006
+    MM total = 0.47727300000000006
+DF(T1:8,TC:1): case1=0.47727300000000006 via TC:2  case2=MAX  case3(MM)=0.47727300000000006  -> CASE3 = 0.47727300000000006
+DT(T1:8,TC:1): case1=3.2272730000000003 via TC:2  case2=MAX  case3=DF+relabel=3.2272730000000003  -> CASE3 (match T1:8<->TC:1) = 3.2272730000000003
+  MM(T1:9,TC:3): both leaves -> 0
+DF(T1:9,TC:3): case1=MAX  case2=MAX  case3(MM)=0.0  -> CASE3 = 0.0
+DT(T1:9,TC:3): case1=MAX  case2=MAX  case3=DF+relabel=25.1136365  -> CASE3 (match T1:9<->TC:3) = 25.1136365
+  MM(T1:9,TC:4): both leaves -> 0
+DF(T1:9,TC:4): case1=MAX  case2=MAX  case3(MM)=0.0  -> CASE3 = 0.0
+DT(T1:9,TC:4): case1=MAX  case2=MAX  case3=DF+relabel=25.25  -> CASE3 (match T1:9<->TC:4) = 25.25
+  MM(T1:9,TC:2): cost matrix rows = children of T1:9 then dummies, cols = children of TC:2 then dummies
+    - | TC:3:0.1136365 TC:4:0.25
+    - | TC:3:0.1136365 TC:4:0.25
+    matched - <-> TC:3  weight 0.1136365
+    matched - <-> TC:4  weight 0.25
+    MM total = 0.36363650000000003
+DF(T1:9,TC:2): case1=0.36363650000000003 via TC:3  case2=MAX  case3(MM)=0.36363650000000003  -> CASE3 = 0.36363650000000003
+DT(T1:9,TC:2): case1=25.477273 via TC:3  case2=MAX  case3=DF+relabel=25.477272999999997  -> CASE3 (match T1:9<->TC:2) = 25.477272999999997
+  MM(T1:9,TC:1): cost matrix rows = children of T1:9 then dummies, cols = children of TC:1 then dummies
+    - | TC:2:0.47727300000000006
+    matched - <-> TC:2  weight 0.47727300000000006
+    MM total = 0.47727300000000006
+DF(T1:9,TC:1): case1=0.47727300000000006 via TC:2  case2=MAX  case3(MM)=0.47727300000000006  -> CASE3 = 0.47727300000000006
+DT(T1:9,TC:1): case1=25.727272999999997 via TC:2  case2=MAX  case3=DF+relabel=25.727273  -> CASE3 (match T1:9<->TC:1) = 25.727273
+  MM(T1:6,TC:3): cost matrix rows = children of T1:6 then dummies, cols = children of TC:3 then dummies
+    T1:8 | -:2.5 -:2.5
+    T1:9 | -:25.0 -:25.0
+    matched T1:8 <-> -  weight 2.5
+    matched T1:9 <-> -  weight 25.0
+    MM total = 27.5
+DF(T1:6,TC:3): case1=MAX  case2=27.5 via T1:8  case3(MM)=27.5  -> CASE3 = 27.5
+DT(T1:6,TC:3): case1=MAX  case2=30.1136365 via T1:9  case3=DF+relabel=30.1136365  -> CASE3 (match T1:6<->TC:3) = 30.1136365
+  MM(T1:6,TC:4): cost matrix rows = children of T1:6 then dummies, cols = children of TC:4 then dummies
+    T1:8 | -:2.5 -:2.5
+    T1:9 | -:25.0 -:25.0
+    matched T1:8 <-> -  weight 2.5
+    matched T1:9 <-> -  weight 25.0
+    MM total = 27.5
+DF(T1:6,TC:4): case1=MAX  case2=27.5 via T1:8  case3(MM)=27.5  -> CASE3 = 27.5
+DT(T1:6,TC:4): case1=MAX  case2=30.25 via T1:8  case3=DF+relabel=30.25  -> CASE3 (match T1:6<->TC:4) = 30.25
+  MM(T1:6,TC:2): cost matrix rows = children of T1:6 then dummies, cols = children of TC:2 then dummies
+    T1:8 | TC:3:2.6136365 TC:4:2.75 -:2.5 -:2.5
+    T1:9 | TC:3:25.1136365 TC:4:25.25 -:25.0 -:25.0
+    - | TC:3:0.1136365 TC:4:0.25 -:0.0 -:0.0
+    - | TC:3:0.1136365 TC:4:0.25 -:0.0 -:0.0
+    matched T1:8 <-> -  weight 2.5
+    matched T1:9 <-> TC:3  weight 25.1136365
+    matched - <-> -  weight 0.0  (dummy-dummy, ignored)
+    matched - <-> TC:4  weight 0.25
+    MM total = 27.8636365
+DF(T1:6,TC:2): case1=27.8636365 via TC:3  case2=27.8636365 via T1:8  case3(MM)=27.8636365  -> CASE3 = 27.8636365
+DT(T1:6,TC:2): case1=30.477273 via TC:3  case2=30.477272999999997 via T1:9  case3=DF+relabel=30.477272999999997  -> CASE3 (match T1:6<->TC:2) = 30.477272999999997
+  MM(T1:6,TC:1): cost matrix rows = children of T1:6 then dummies, cols = children of TC:1 then dummies
+    T1:8 | TC:2:2.9772730000000003 -:2.5 -:2.5
+    T1:9 | TC:2:25.477272999999997 -:25.0 -:25.0
+    - | TC:2:0.47727300000000006 -:0.0 -:0.0
+    matched T1:8 <-> -  weight 2.5
+    matched T1:9 <-> TC:2  weight 25.477272999999997
+    matched - <-> -  weight 0.0  (dummy-dummy, ignored)
+    MM total = 27.977272999999997
+DF(T1:6,TC:1): case1=27.977273 via TC:2  case2=27.977273 via T1:8  case3(MM)=27.977272999999997  -> CASE3 = 27.977272999999997
+DT(T1:6,TC:1): case1=30.727272999999997 via TC:2  case2=30.727273 via T1:8  case3=DF+relabel=30.727272999999997  -> CASE3 (match T1:6<->TC:1) = 30.727272999999997
+  MM(T1:4,TC:3): cost matrix rows = children of T1:4 then dummies, cols = children of TC:3 then dummies
+    T1:5 | -:7.5 -:7.5
+    T1:6 | -:30.0 -:30.0
+    matched T1:5 <-> -  weight 7.5
+    matched T1:6 <-> -  weight 30.0
+    MM total = 37.5
+DF(T1:4,TC:3): case1=MAX  case2=37.5 via T1:5  case3(MM)=37.5  -> CASE3 = 37.5
+DT(T1:4,TC:3): case1=MAX  case2=45.1136365 via T1:6  case3=DF+relabel=45.1136365  -> CASE3 (match T1:4<->TC:3) = 45.1136365
+  MM(T1:4,TC:4): cost matrix rows = children of T1:4 then dummies, cols = children of TC:4 then dummies
+    T1:5 | -:7.5 -:7.5
+    T1:6 | -:30.0 -:30.0
+    matched T1:5 <-> -  weight 7.5
+    matched T1:6 <-> -  weight 30.0
+    MM total = 37.5
+DF(T1:4,TC:4): case1=MAX  case2=37.5 via T1:5  case3(MM)=37.5  -> CASE3 = 37.5
+DT(T1:4,TC:4): case1=MAX  case2=45.25 via T1:5  case3=DF+relabel=45.25  -> CASE3 (match T1:4<->TC:4) = 45.25
+  MM(T1:4,TC:2): cost matrix rows = children of T1:4 then dummies, cols = children of TC:2 then dummies
+    T1:5 | TC:3:7.6136365 TC:4:7.75 -:7.5 -:7.5
+    T1:6 | TC:3:30.1136365 TC:4:30.25 -:30.0 -:30.0
+    - | TC:3:0.1136365 TC:4:0.25 -:0.0 -:0.0
+    - | TC:3:0.1136365 TC:4:0.25 -:0.0 -:0.0
+    matched T1:5 <-> -  weight 7.5
+    matched T1:6 <-> TC:3  weight 30.1136365
+    matched - <-> -  weight 0.0  (dummy-dummy, ignored)
+    matched - <-> TC:4  weight 0.25
+    MM total = 37.8636365
+DF(T1:4,TC:2): case1=37.8636365 via TC:3  case2=37.8636365 via T1:6  case3(MM)=37.8636365  -> CASE3 = 37.8636365
+DT(T1:4,TC:2): case1=45.477273 via TC:3  case2=45.477273 via T1:6  case3=DF+relabel=45.477273  -> CASE3 (match T1:4<->TC:2) = 45.477273
+  MM(T1:4,TC:1): cost matrix rows = children of T1:4 then dummies, cols = children of TC:1 then dummies
+    T1:5 | TC:2:7.977273 -:7.5 -:7.5
+    T1:6 | TC:2:30.477272999999997 -:30.0 -:30.0
+    - | TC:2:0.47727300000000006 -:0.0 -:0.0
+    matched T1:5 <-> -  weight 7.5
+    matched T1:6 <-> TC:2  weight 30.477272999999997
+    matched - <-> -  weight 0.0  (dummy-dummy, ignored)
+    MM total = 37.977273
+DF(T1:4,TC:1): case1=37.977273 via TC:2  case2=37.977273 via T1:6  case3(MM)=37.977273  -> CASE3 = 37.977273
+DT(T1:4,TC:1): case1=45.727273 via TC:2  case2=45.727273 via T1:6  case3=DF+relabel=45.727273  -> CASE3 (match T1:4<->TC:1) = 45.727273
+  MM(T1:2,TC:3): cost matrix rows = children of T1:2 then dummies, cols = children of TC:3 then dummies
+    T1:3 | -:19.0 -:19.0
+    T1:4 | -:45.0 -:45.0
+    matched T1:3 <-> -  weight 19.0
+    matched T1:4 <-> -  weight 45.0
+    MM total = 64.0
+DF(T1:2,TC:3): case1=MAX  case2=64.0 via T1:3  case3(MM)=64.0  -> CASE3 = 64.0
+DT(T1:2,TC:3): case1=MAX  case2=83.1136365 via T1:3  case3=DF+relabel=83.1136365  -> CASE3 (match T1:2<->TC:3) = 83.1136365
+  MM(T1:2,TC:4): cost matrix rows = children of T1:2 then dummies, cols = children of TC:4 then dummies
+    T1:3 | -:19.0 -:19.0
+    T1:4 | -:45.0 -:45.0
+    matched T1:3 <-> -  weight 19.0
+    matched T1:4 <-> -  weight 45.0
+    MM total = 64.0
+DF(T1:2,TC:4): case1=MAX  case2=64.0 via T1:3  case3(MM)=64.0  -> CASE3 = 64.0
+DT(T1:2,TC:4): case1=MAX  case2=83.25 via T1:3  case3=DF+relabel=83.25  -> CASE3 (match T1:2<->TC:4) = 83.25
+  MM(T1:2,TC:2): cost matrix rows = children of T1:2 then dummies, cols = children of TC:2 then dummies
+    T1:3 | TC:3:19.1136365 TC:4:19.25 -:19.0 -:19.0
+    T1:4 | TC:3:45.1136365 TC:4:45.25 -:45.0 -:45.0
+    - | TC:3:0.1136365 TC:4:0.25 -:0.0 -:0.0
+    - | TC:3:0.1136365 TC:4:0.25 -:0.0 -:0.0
+    matched T1:3 <-> TC:3  weight 19.1136365
+    matched T1:4 <-> -  weight 45.0
+    matched - <-> -  weight 0.0  (dummy-dummy, ignored)
+    matched - <-> TC:4  weight 0.25
+    MM total = 64.3636365
+DF(T1:2,TC:2): case1=64.3636365 via TC:3  case2=64.3636365 via T1:4  case3(MM)=64.3636365  -> CASE3 = 64.3636365
+DT(T1:2,TC:2): case1=83.477273 via TC:3  case2=83.477273 via T1:3  case3=DF+relabel=83.477273  -> CASE3 (match T1:2<->TC:2) = 83.477273
+  MM(T1:2,TC:1): cost matrix rows = children of T1:2 then dummies, cols = children of TC:1 then dummies
+    T1:3 | TC:2:19.477272999999997 -:19.0 -:19.0
+    T1:4 | TC:2:45.477273 -:45.0 -:45.0
+    - | TC:2:0.47727300000000006 -:0.0 -:0.0
+    matched T1:3 <-> TC:2  weight 19.477272999999997
+    matched T1:4 <-> -  weight 45.0
+    matched - <-> -  weight 0.0  (dummy-dummy, ignored)
+    MM total = 64.477273
+DF(T1:2,TC:1): case1=64.477273 via TC:2  case2=64.477273 via T1:4  case3(MM)=64.477273  -> CASE3 = 64.477273
+DT(T1:2,TC:1): case1=83.727273 via TC:2  case2=83.727273 via T1:4  case3=DF+relabel=83.727273  -> CASE3 (match T1:2<->TC:1) = 83.727273
+  MM(T1:1,TC:3): cost matrix rows = children of T1:1 then dummies, cols = children of TC:3 then dummies
+    T1:2 | -:83.0
+    matched T1:2 <-> -  weight 83.0
+    MM total = 83.0
+DF(T1:1,TC:3): case1=MAX  case2=83.0 via T1:2  case3(MM)=83.0  -> CASE3 = 83.0
+DT(T1:1,TC:3): case1=MAX  case2=108.1136365 via T1:2  case3=DF+relabel=108.1136365  -> CASE3 (match T1:1<->TC:3) = 108.1136365
+  MM(T1:1,TC:4): cost matrix rows = children of T1:1 then dummies, cols = children of TC:4 then dummies
+    T1:2 | -:83.0
+    matched T1:2 <-> -  weight 83.0
+    MM total = 83.0
+DF(T1:1,TC:4): case1=MAX  case2=83.0 via T1:2  case3(MM)=83.0  -> CASE3 = 83.0
+DT(T1:1,TC:4): case1=MAX  case2=108.25 via T1:2  case3=DF+relabel=108.25  -> CASE3 (match T1:1<->TC:4) = 108.25
+  MM(T1:1,TC:2): cost matrix rows = children of T1:1 then dummies, cols = children of TC:2 then dummies
+    T1:2 | TC:3:83.1136365 TC:4:83.25 -:83.0
+    - | TC:3:0.1136365 TC:4:0.25 -:0.0
+    - | TC:3:0.1136365 TC:4:0.25 -:0.0
+    matched T1:2 <-> TC:3  weight 83.1136365
+    matched - <-> -  weight 0.0  (dummy-dummy, ignored)
+    matched - <-> TC:4  weight 0.25
+    MM total = 83.3636365
+DF(T1:1,TC:2): case1=83.3636365 via TC:3  case2=83.3636365 via T1:2  case3(MM)=83.3636365  -> CASE3 = 83.3636365
+DT(T1:1,TC:2): case1=108.477273 via TC:3  case2=108.477273 via T1:2  case3=DF+relabel=108.477273  -> CASE3 (match T1:1<->TC:2) = 108.477273
+  MM(T1:1,TC:1): cost matrix rows = children of T1:1 then dummies, cols = children of TC:1 then dummies
+    T1:2 | TC:2:83.477273 -:83.0
+    - | TC:2:0.47727300000000006 -:0.0
+    matched T1:2 <-> TC:2  weight 83.477273
+    matched - <-> -  weight 0.0  (dummy-dummy, ignored)
+    MM total = 83.477273
+DF(T1:1,TC:1): case1=83.477273 via TC:2  case2=83.477273 via T1:2  case3(MM)=83.477273  -> CASE3 = 83.477273
+DT(T1:1,TC:1): case1=108.727273 via TC:2  case2=108.727273 via T1:2  case3=DF+relabel=108.727273  -> CASE3 (match T1:1<->TC:1) = 108.727273
+=== compute() returned 108.727273; rebuilding the mapping from the stored choices ===
+rebuildDT(T1:1,TC:1): stored choice CASE3 (match T1:1<->TC:1)  -> forward[T1:1] = TC:1
+rebuildDF(T1:1,TC:1): stored choice CASE3
+  MM(T1:1,TC:1) [re-run during rebuild]: cost matrix rows = children of T1:1 then dummies, cols = children of TC:1 then dummies
+    T1:2 | TC:2:83.477273 -:83.0
+    - | TC:2:0.47727300000000006 -:0.0
+    matched T1:2 <-> TC:2  weight 83.477273
+    matched - <-> -  weight 0.0  (dummy-dummy, ignored)
+    MM total = 83.477273
+rebuildDT(T1:2,TC:2): stored choice CASE3 (match T1:2<->TC:2)  -> forward[T1:2] = TC:2
+rebuildDF(T1:2,TC:2): stored choice CASE3
+  MM(T1:2,TC:2) [re-run during rebuild]: cost matrix rows = children of T1:2 then dummies, cols = children of TC:2 then dummies
+    T1:3 | TC:3:19.1136365 TC:4:19.25 -:19.0 -:19.0
+    T1:4 | TC:3:45.1136365 TC:4:45.25 -:45.0 -:45.0
+    - | TC:3:0.1136365 TC:4:0.25 -:0.0 -:0.0
+    - | TC:3:0.1136365 TC:4:0.25 -:0.0 -:0.0
+    matched T1:3 <-> TC:3  weight 19.1136365
+    matched T1:4 <-> -  weight 45.0
+    matched - <-> -  weight 0.0  (dummy-dummy, ignored)
+    matched - <-> TC:4  weight 0.25
+    MM total = 64.3636365
+rebuildDT(T1:3,TC:3): stored choice CASE3 (match T1:3<->TC:3)  -> forward[T1:3] = TC:3
+rebuildDF(T1:3,TC:3): stored choice CASE3
+  MM(T1:3,TC:3) [re-run during rebuild]: both leaves -> 0
+rebuildDT(T1:4,-): one side empty -> nothing mapped
+rebuildDT(-,TC:4): one side empty -> nothing mapped

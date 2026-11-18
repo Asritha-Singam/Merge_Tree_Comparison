@@ -1,0 +1,25 @@
+run      after_cwmted_to_cpp
+date     20261116-221001
+java     openjdk version "21.0.12.1" 2026-08-18 LTS
+workers  11
+programs CW CO BN WS SM W1
+native   CO = C:\Users\saias\OneDrive\Desktop\IIITH\SV\Project_SV\Merge_Tree_Comparison\Converted_Merge_Tree_Comparison\CO-MTED.exe
+native   CW = C:\Users\saias\OneDrive\Desktop\IIITH\SV\Project_SV\Merge_Tree_Comparison\Converted_Merge_Tree_Comparison\CW-MTED.exe
+
+[examples]  inputs: C:\Users\saias\OneDrive\Desktop\IIITH\SV\Project_SV\Merge_Tree_Comparison\Examples\Inputs  pairs: 256
+  CW  ok  256  failed   0  avg 0.18s
+  CO  ok  256  failed   0  avg 0.18s
+  BN  ok  256  failed   0  avg 0.43s
+  WS  ok  256  failed   0  avg 0.44s
+  SM  ok  256  failed   0  avg 0.49s
+  W1  ok  256  failed   0  avg 0.43s
+
+[w1]  inputs: C:\Users\saias\OneDrive\Desktop\IIITH\SV\Project_SV\Merge_Tree_Comparison\test(W1)\test_trees  pairs: 250
+  CW  ok  250  failed   0  avg 0.19s
+  CO  ok  250  failed   0  avg 0.17s
+  BN  ok  250  failed   0  avg 1.03s
+  WS  ok  250  failed   0  avg 0.89s
+  SM  ok  250  failed   0  avg 1.01s
+  W1  ok  250  failed   0  avg 0.89s
+
+total time 146s
