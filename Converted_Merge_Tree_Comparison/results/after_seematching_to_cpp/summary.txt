@@ -1,0 +1,14 @@
+run      after_seematching_to_cpp
+date     20261121-161541
+java     openjdk version "21.0.12.1" 2026-08-18 LTS
+java     C:\Users\saias\OneDrive\Desktop\IIITH\SV\Project_SV\Merge_Tree_Comparison\SeeMatching.java  (compiled as comparator.ConstrainedEditDist)
+native   SM = C:\Users\saias\OneDrive\Desktop\IIITH\SV\Project_SV\Merge_Tree_Comparison\Converted_Merge_Tree_Comparison\SeeMatching.exe
+compare  set of matched pairs (order ignored); if different, total cost of both
+
+[examples]  inputs: C:\Users\saias\OneDrive\Desktop\IIITH\SV\Project_SV\Merge_Tree_Comparison\Examples\Inputs  pairs: 256
+  same matching 256 | tie (different matching, same cost) 0 | DIFFERENT 0 | ERROR 0
+
+[w1]  inputs: C:\Users\saias\OneDrive\Desktop\IIITH\SV\Project_SV\Merge_Tree_Comparison\test(W1)\test_trees  pairs: 250
+  same matching 249 | tie (different matching, same cost) 1 | DIFFERENT 0 | ERROR 0
+
+total time 36s

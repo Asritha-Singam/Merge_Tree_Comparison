@@ -9,11 +9,14 @@
 #include <memory>
 #include <string>
 
-// CW-MTED.jar, CO-MTED.jar, CustomisedBottleneck.jar and CustomisedWasserstein.jar
-// are replaced by the same-named .java files in the home directory, run directly
-// (Java source-file mode, JDK 11+). jgrapht/jheaps come from the extracted classes
-// in CustomisedWasserstein/org.
-#define MTED_JAVA(name) "java -cp CustomisedWasserstein " name ".java "
+#include <array>
+
+// Converted version: all four distances run the C++ executables that sit in
+// this folder instead of Java:
+//   CustomisedBottleneck.exe, CustomisedWasserstein.exe, CO-MTED.exe, CW-MTED.exe
+// They take the same arguments and print the same number as the Java programs.
+// Run Driver.py from this folder so these .exe files are found.
+#define MTED_EXE(name) ".\\" name ".exe "
 
 namespace mergeTrees {
 
@@ -97,7 +100,7 @@ namespace mergeTrees {
         T1 -> WriteToCEDTFile(T1 -> genCEDTInput(), TreeFile1 + ".jt");
         T2 -> WriteToCEDTFile(T2 -> genCEDTInput(), TreeFile2 + ".jt");
 
-        std :: string command = MTED_JAVA("CustomisedBottleneck") + TreeName1 + ".jt " + TreeName2 + ".jt ./";
+        std :: string command = MTED_EXE("CustomisedBottleneck") + TreeName1 + ".jt " + TreeName2 + ".jt ./";
         //std :: string Bottleneck = pipeline ("java -jar CustomisedBottleneck.jar Tree1.jt Tree3.jt ./");
         char *cmnd = &command[0];
         //std :: cout << cmnd;
@@ -120,7 +123,7 @@ namespace mergeTrees {
         T1 -> WriteToCEDTFile(T1 -> genCEDTInput(), TreeFile1 + ".jt");
         T2 -> WriteToCEDTFile(T2 -> genCEDTInput(), TreeFile2 + ".jt");
 
-        std :: string command = MTED_JAVA("CustomisedWasserstein") + TreeName1 + ".jt " + TreeName2 + ".jt ./";
+        std :: string command = MTED_EXE("CustomisedWasserstein") + TreeName1 + ".jt " + TreeName2 + ".jt ./";
         //std :: cout << command;
         char *cmnd = &command[0];
         std :: string Wasserstein = pipeline(cmnd);
@@ -143,7 +146,7 @@ namespace mergeTrees {
         T1 -> WriteToCEDTFile(T1 -> genCEDTInput(), TreeFile1 + ".jt");
         T2 -> WriteToCEDTFile(T2 -> genCEDTInput(), TreeFile2 + ".jt");
 
-        std :: string command = MTED_JAVA("CW-MTED") + TreeName1 + ".jt " + TreeName2 + ".jt " + OutputLocation;
+        std :: string command = MTED_EXE("CW-MTED") + TreeName1 + ".jt " + TreeName2 + ".jt " + OutputLocation;
         char *cmnd = &command[0];
         std :: string CWMEDT = pipeline(cmnd);
         return stod(CWMEDT);
@@ -163,7 +166,7 @@ namespace mergeTrees {
         T1 -> WriteToCEDTFile(T1 -> genCEDTInput(), TreeFile1 + ".jt");
         T2 -> WriteToCEDTFile(T2 -> genCEDTInput(), TreeFile2 + ".jt");
 
-        std :: string command = MTED_JAVA("CO-MTED") + TreeName1 + ".jt " + TreeName2 + ".jt " + OutputLocation;
+        std :: string command = MTED_EXE("CO-MTED") + TreeName1 + ".jt " + TreeName2 + ".jt " + OutputLocation;
         char *cmnd = &command[0];
         std :: string COMTED = pipeline(cmnd);
         return stod(COMTED);
@@ -218,7 +221,7 @@ namespace mergeTrees {
         std :: string TreeFile1 = T1 -> Name;
         std :: string TreeFile2 = T2 -> Name;
 
-        std :: string command = MTED_JAVA("CustomisedBottleneck") + TreeFile1 + ".jt " + TreeFile2 + ".jt ./";
+        std :: string command = MTED_EXE("CustomisedBottleneck") + TreeFile1 + ".jt " + TreeFile2 + ".jt ./";
         char *cmnd = &command[0];
         std :: string Bottleneck = pipeline(cmnd);
         return stod(Bottleneck);
@@ -229,7 +232,7 @@ namespace mergeTrees {
       std :: string TreeFile1 = T1 -> Name;
       std :: string TreeFile2 = T2 -> Name;
 
-      std :: string command = MTED_JAVA("CustomisedWasserstein") + TreeFile1 + ".jt " + TreeFile2 + ".jt ./";
+      std :: string command = MTED_EXE("CustomisedWasserstein") + TreeFile1 + ".jt " + TreeFile2 + ".jt ./";
       char *cmnd = &command[0];
       std :: string Wasserstein = pipeline(cmnd);
       return stod(Wasserstein);
@@ -240,7 +243,7 @@ namespace mergeTrees {
         std :: string TreeFile1 = T1 -> Name;
         std :: string TreeFile2 = T2 -> Name;
 
-        std :: string command = MTED_JAVA("CW-MTED") + TreeFile1 + ".jt " + TreeFile2 + ".jt " + OutputLocation;
+        std :: string command = MTED_EXE("CW-MTED") + TreeFile1 + ".jt " + TreeFile2 + ".jt " + OutputLocation;
         char *cmnd = &command[0];
         std :: string CWEDT = pipeline(cmnd);
         return stod(CWEDT);
@@ -250,7 +253,7 @@ namespace mergeTrees {
         std :: string TreeFile1 = T1 -> Name;
         std :: string TreeFile2 = T2 -> Name;
 
-        std :: string command = MTED_JAVA("CO-MTED") + TreeFile1 + ".jt " + TreeFile2 + ".jt " + OutputLocation;
+        std :: string command = MTED_EXE("CO-MTED") + TreeFile1 + ".jt " + TreeFile2 + ".jt " + OutputLocation;
         char *cmnd = &command[0];
         std :: string COEDT = pipeline(cmnd);
         return stod(COEDT);

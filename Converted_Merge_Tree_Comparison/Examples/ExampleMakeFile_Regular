@@ -1,0 +1,21 @@
+RegularAllOptions
+Pairwise
+./Examples/Inputs
+2
+Reg.jt
+Tree1.jt
+./Examples/RunRegular
+4
+bottleneck; plots in_normal out_normal
+Wasserstein; plots in_normal
+CWMTED; plots in_normal out_normal
+COMTED; plots in_normal out_normal
+8
+TotalPers; 1
+TotalPers; 2 normal
+TotalPers; -1
+TotalPers; 3 normal
+depth
+feat
+pers_dist; plots normal
+pers_dist; plots

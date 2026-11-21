@@ -1,0 +1,14 @@
+run      after_bottleneck_to_cpp
+date     20261120-143425
+java     openjdk version "21.0.12.1" 2026-08-18 LTS
+workers  11
+programs BN
+native   BN = C:\Users\saias\OneDrive\Desktop\IIITH\SV\Project_SV\Merge_Tree_Comparison\Converted_Merge_Tree_Comparison\CustomisedBottleneck.exe
+
+[examples]  inputs: C:\Users\saias\OneDrive\Desktop\IIITH\SV\Project_SV\Merge_Tree_Comparison\Examples\Inputs  pairs: 256
+  BN  ok  256  failed   0  avg 0.26s
+
+[w1]  inputs: C:\Users\saias\OneDrive\Desktop\IIITH\SV\Project_SV\Merge_Tree_Comparison\test(W1)\test_trees  pairs: 250
+  BN  ok  250  failed   0  avg 0.23s
+
+total time 12s

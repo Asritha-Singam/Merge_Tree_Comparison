@@ -1,0 +1,17 @@
+ComparisonExpt1
+Pairwise
+./Examples/Inputs
+3
+Tree1
+Tree2
+Tree3
+./Examples/RunPairwise
+3
+CWMTED; in_normal out_normal
+COMTED; out_normal plots
+bottleneck; plots
+4
+TotalPers; 2
+TotalPers; 3 normal
+depth
+feat

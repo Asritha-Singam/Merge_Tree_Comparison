@@ -1,0 +1,16 @@
+ComparisonExpt2
+Sequential
+./Examples/Inputs
+5
+TreeA
+TreeB
+TreeC
+TreeD
+TreeE
+./Examples/RunSeqs
+2
+CWMTED; in_normal
+COMTED; out_normal
+2
+depth
+TotalPers; 2 normal

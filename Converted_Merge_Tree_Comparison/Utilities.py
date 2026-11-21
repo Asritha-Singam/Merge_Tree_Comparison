@@ -304,7 +304,13 @@ def draw_tree(FileName):
 
 def SeeMatching(FileName1,FileName2):
     if FileName1 != FileName2:
-        matching = subprocess.run(["java -cp CustomisedWasserstein SeeMatching.java "+ FileName1 + ".jt " + FileName2 + ".jt ./"],shell=True, capture_output=True,text=True).stdout.strip()
+        # Converted version: SeeMatching.exe (C++) in this folder instead of SeeMatching.java.
+        # The program and its arguments are passed as separate list items, without
+        # shell=True. (The old call passed ONE string inside a list with shell=True;
+        # on Windows that whole string is quoted and run as one program name, which
+        # fails, so the output was empty and the pictures had no colours.)
+        matching = subprocess.run([os.path.abspath("SeeMatching.exe"), FileName1 + ".jt", FileName2 + ".jt", "./"],
+                                  capture_output=True, text=True).stdout.strip()
         matching = matching.replace('[','')
         matching = matching.replace(']','')
         matching = matching.replace('(','')
